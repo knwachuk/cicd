@@ -1,25 +1,33 @@
-# cicd
-This practices CI/CD pipeline via https://www.youtube.com/watch?v=eB0nUzAI7M8
+# Continuous Integration / Continuous Deployment
 
-## [Deploy to your test server with git hooks](https://www.jujens.eu/posts/en/2018/Sep/09/deploy-test-git-hooks/)
+This practices [CI/CD](https://www.youtube.com/watch?v=eB0nUzAI7M8) pipeline by using a local test server (Raspberry Pi) on [Raspberry Pi OS](https://www.raspberrypi.org/software/operating-systems/#raspberry-pi-os-32-bit). It utilizes Python3, mod_wsgi, and apache2.
 
-### Summary
+This write-up has 3 parts:
 
-#### Setup server
+1. [Setup physical server](docs/1-physical-server.md)
+2. [Setup git remote](docs/2-git-remote.md)
+3. [Setup web server](docs/3-web-server.md)
 
-So in a nutshell, to setup the server, you need to:
+## Setup Physical Server
 
-1. Install the prerequisities
-2. Configure SSH
-3. Add and configure the base user and group
-4. Setup the global domain if possible
+1. Download the [Raspberry Pi OS Lite](https://www.raspberrypi.org/software/operating-systems/#raspberry-pi-os-32-bit) (I used release data: Jnuary 11th 2021)
+2. Flash to microSD card
+3. Install in RPi 
+4. Change default password (I can't stress this enough)
+5. Update software (`sudo apt-get update && sudo apt-get upgrade`)
+6. Setup ssh
 
-#### Add user
+## Setup git remote
 
-Each time you want to add a user, you need to:
+1. Install git (`sudo apt-get install git`)
+2. Install python3-venv (`sudo apt-get install python3-venv`)
+3. Configure server-wide git hooks
+4. clone git repository on test server
+5. Add test server repo as remote in local machine
 
-1. Add a new DNS entry if you can't use "glob domains"
-2. add a new user in the `deploy` group
-3. Prepare the code repository (clone and setup hooks if you didn't choose to use global ones)
-4. Prepare the environment (`.env` file, venv, ...)
-5. Start the application server
+## Setup web server
+
+1. Install apache2 (`sudo apt-get install apache2`)
+2. Install mod_wsgi (`libapache2-mod-wsgi-py3`)
+3. Configure Apache2
+4. Configure wsgi entry point (`app.wsgi`)
